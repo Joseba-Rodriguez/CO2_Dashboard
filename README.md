@@ -29,8 +29,8 @@ La función realiza las siguientes tareas:
 ## Gráfico de Combustibles
 
 En el gráfico de barras, cada tipo de combustible se representa con un color diferente:
-- Diesel: Azul
-- Gasolina: Verde
+- Gasolina: Azul
+- Diesel: Verde
 - Otro: Naranja
 
 ## Lista de Coches
