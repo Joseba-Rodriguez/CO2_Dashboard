@@ -1,0 +1,42 @@
+/* Sentiros libres de tocar colores o lo que sea */
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.graph-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    border: 1px solid black;
+}
+
+#graph1 {
+    display: flex;
+}
+
+#left {
+    flex: 7;
+    background-color: #dfdfdf;
+    padding: 5px;
+}
+
+#right {
+    flex: 3;
+    background-color: #cdcecf;
+    border-left: 1px dotted black;
+    padding: 5px;
+}
+
+#graph2 {
+    /*height: 300px;*/
+    background-color: #dee2e6;
+    border-radius: 10px;
+    padding: 5px;
+}
+
