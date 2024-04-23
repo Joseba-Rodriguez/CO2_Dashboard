@@ -1,11 +1,4 @@
-<<<<<<< HEAD
 body {
-    font-family: Arial, sans-serif;
-=======
-/* Sentiros libres de tocar colores o lo que sea */
-
-body {
->>>>>>> 69dd1307f9dc464cea3579be541dcc623d39c4aa
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -26,7 +19,6 @@ body {
 }
 
 #left {
-<<<<<<< HEAD
     flex: 1;
     background-color: #dfdfdf;
     padding: 20px;
@@ -56,11 +48,7 @@ h1#mainTitle, p#order, #selectedMake {
     font-size: 12px;
     fill: black;
 }
-=======
-    flex: 7;
-    background-color: #dfdfdf;
-    padding: 5px;
-}
+
 
 #right {
     flex: 3;
@@ -75,5 +63,3 @@ h1#mainTitle, p#order, #selectedMake {
     border-radius: 10px;
     padding: 5px;
 }
-
->>>>>>> 69dd1307f9dc464cea3579be541dcc623d39c4aa

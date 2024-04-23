@@ -1,59 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-<<<<<<< HEAD
-<head>
-    <meta charset="UTF-8">
-    <title>Actividad 1</title>
-
-    <link rel="stylesheet" href="styles.css">
-    <!-- Carga de la libreria de D3.js -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="script.js" defer></script> <!-- Añadimos el script.js -->
-    
-    <script>
-        function draw(){
-            d3.select("h1#mainTitle").style("text-align", "center");
-            d3.select("p#order").style("text-align", "center");
-            d3.select("#btn")
-                .style("display", "block")
-                .style("margin", "auto")
-                .style("border-radius", "5px")
-                .on("click", function() {
-                    sortAndRedraw();
-                });
-        }
-        
-    </script>
-
-</head>
-    
-<!-- Llamo a la funcion cuando cargue el body -->
-<body onload="draw()">
-    <h1 id="mainTitle">Actividad Grupal - Herramientas de visualización</h1>
-    <p><b>Integrantes del equipo:</b></p>
-    <ul> 
-        <li class="member">García Díaz, Pedro Ruymán</li>
-        <li class="member">Rodríguez Vivanco, Joseba</li>
-        <li class="member">Cano García, Eduardo</li>
-        <li class="member">Martín García, Víctor Manuel</li>
-    </ul>
-    
-    <!-- Tenemos un contenedor con dos graficas: la grande a la izquierda y la pequeña a la derecha-->
-    <div id="graph1" class="graph-container">
-        <div id="left">
-            <!-- Aqui se dibujará la grafica de barras -->
-        </div>
-        <div id="right">
-            <!-- Aqui se dibujará la grafica de combustibles -->
-        </div>
-    </div>
-
-    <!-- Esta es la segunda grafica con los tipos de combustibles segun la marca seleccionada -->
-
-
-</body>
-</html>
-=======
     <head>
         <meta charset="UTF-8">
         <title>Actividad 1</title>
@@ -107,4 +53,4 @@
         <div id="graph2" class="graph-container">Aqui la grafica de debajo que sale al pulsar en una de las marcas para mostrar las barras verticales con los porcentajes segun el tipo de combustible</div>
     </body>
 </html>
->>>>>>> 69dd1307f9dc464cea3579be541dcc623d39c4aa
+
