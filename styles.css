@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.graph-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    border: 1px solid black;
+}
+
+#graph1 {
+    display: flex;
+}
+
+#left {
+    flex: 1;
+    background-color: #dfdfdf;
+    padding: 20px;
+}
+
+#right {
+    flex: 1;
+    background-color: #cdcecf;
+    border-left: 1px dotted black;
+    padding: 20px;
+}
+
+h1#mainTitle, p#order, #selectedMake {
+    text-align: center;
+}
+
+.member {
+    list-style-type: none;
+}
+
+.bar-label, .value-label {
+    font-size: 12px;
+    fill: white;
+}
+
+.percentage {
+    font-size: 12px;
+    fill: black;
+}
