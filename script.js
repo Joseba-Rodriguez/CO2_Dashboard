@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 let isAscending = true;
 let selectedMake = null;
 let averageConsumption = [];  // Para almacenar los datos globales
@@ -250,3 +251,6 @@ function drawFuelChart(make, fullData) {
         .append("p")
         .text(d => `${d.MODEL} - ${d3.format(".2f")(d['FUEL CONSUMPTION'])} L/100km`);
 }
+=======
+console.log("¡Hola gente!")
+>>>>>>> 69dd1307f9dc464cea3579be541dcc623d39c4aa
