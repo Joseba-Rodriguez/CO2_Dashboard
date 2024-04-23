@@ -1,56 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Actividad 1</title>
+<head>
+    <meta charset="UTF-8">
+    <title>Actividad 1</title>
 
-        <link rel="stylesheet" href="styles.css">
-        <!-- Carga de la libreria de D3.js -->
-        <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Carga de la libreria de D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="script.js" defer></script> <!-- Añadimos el script.js -->
+</head>
 
-        
-        <script>
-            // Dejo la funcion con este nombre, pero cambiarla si quereis
-            function draw(){
-                
-                d3.select("h1#mainTitle").style("text-align", "center");
-                d3.select("p#order").style("text-align", "center");
-                d3.select("#btn")
-                                .style("display", "block")
-                                .style("margin", "auto")
-                                .style("border-radius", "5px");
-                
-            }
-            
-        </script>
-
-    </head>
+<!-- Llamo a la funcion cuando cargue el body -->
+<body onload="draw()">
+    <h1 id="mainTitle">Actividad Grupal - Herramientas de visualización</h1>
+    <p><b>Integrantes del equipo:</b></p>
+    <ul> 
+        <li class="member">García Díaz, Pedro Ruymán</li>
+        <li class="member">Rodríguez Vivanco, Joseba</li>
+        <li class="member">Cano García, Eduardo</li>
+        <li class="member">Martín García, Víctor Manuel</li>
+    </ul>
     
-    <!-- Llamo a la funcion cuando cargue el body -->
-    <body onload="draw()">
-        <h1 id="mainTitle">Actividad Grupal - Herramientas de visualización</h1>
-        <p><b>Integrantes del equipo:</b></p>
-        <ul> 
-            <li class="member">García Díaz, Pedro Ruymán</li>
-            <li class="member">Rodríguez Vivanco, Joseba</li>
-            <li class="member">Cano García, Eduardo</li>
-            <li class="member">Martín García, Víctor Manuel</li>
-        </ul>
-        
-        <!-- Tenemos un contenedor con dos graficas: la grande a la izquierda y la pequeña a la derecha-->
-        <div id="graph1" class="graph-container">
-            <div id="left">
-                Aqui la grafica de la izquierda que hemos hablado con la ordenación de las marcas
-            </div>
-            <div id="right">
-                Aqui la grafica de la derecha para mostrar el porcentaje de las clases de vehiculos segun marca
-                <p id="order">Está viendo la ordenación de forma ascendente</p>
-                <input type="button" id="btn" value="Cambiar">
-            </div>
+    <!-- Tenemos un contenedor con dos graficas: la grande a la izquierda y la pequeña a la derecha-->
+    <div id="graph1" class="graph-container">
+        <div id="left">
+            <!-- Aqui se dibujará la grafica de barras -->
         </div>
+        <div id="right">
+            <!-- Aqui se dibujará la grafica de combustibles -->
+        </div>
+    </div>
 
-        <!-- Esta es la segunda grafica con los tipos de combustibles segun la marca seleccionada -->
-        <div id="graph2" class="graph-container">Aqui la grafica de debajo que sale al pulsar en una de las marcas para mostrar las barras verticales con los porcentajes segun el tipo de combustible</div>
-    </body>
+    <!-- Esta es la segunda grafica con los tipos de combustibles segun la marca seleccionada -->
+
+
+</body>
 </html>
-
