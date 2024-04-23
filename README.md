@@ -25,15 +25,6 @@ La función realiza las siguientes tareas:
 6. Muestra una leyenda con los colores de cada tipo de combustible.
 7. Muestra una lista con los 5 coches de mayor consumo.
 
-#### Ejemplo de Uso
-
-```javascript
-// Cargar los datos desde un CSV
-d3.csv("data.csv").then(data => {
-    // Llamar a la función drawFuelChart con una marca específica y los datos cargados
-    drawFuelChart("Toyota", data);
-});
-```
 
 ## Gráfico de Combustibles
 
