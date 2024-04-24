@@ -1,20 +1,28 @@
-let isAscending = true;
-let selectedMake = null;
-let averageConsumption = [];  // Para almacenar los datos globales
+let isAscending = true; // true cuando la ordenacion es ascendente en el consumo de gasolina; false en caso contrario
+let selectedMake = null; // Almacena el valor de la marca que el usuario selecciona. Inicialmente null porque no esta seleccionada ninguna por defecto
+let averageConsumption = [];  // Para almacenar los datos globales de consumo medio de combustible
 
+/*
+    1 - Carga de los datos
+    2 - Agrupacion de los datos por la marca del vehiculo
+    3 - Calculo del consumo pormedio de combustible para cada marca
+*/
 d3.csv("FuelConsumption.csv").then(data => {
     let consumptionByMake = d3.group(data, d => d.MAKE);
+    
     averageConsumption = Array.from(consumptionByMake, ([make, values]) => {
         let total = d3.sum(values, d => +d['FUEL CONSUMPTION']);
         let count = values.length;
         return { make, average: total / count };
     });
 
-    sortData(averageConsumption);
+    sortData(averageConsumption); // Ordenacion de los datos por consumo promedio, de forma ascendente o descendente
 
-    drawBarChart(averageConsumption, data);
+    drawBarChart(averageConsumption, data); // Se muestra el grafico de barras de consumos promedios
 });
 
+// Ordena los datos de consumo recibidos en función de si se selecciona orden ascendente o descendente
+// Por defecto, si el usuario no indica lo contrario, la ordenacion es ascendente
 function sortData(data) {
     if (isAscending) {
         data.sort((a, b) => a.average - b.average);
