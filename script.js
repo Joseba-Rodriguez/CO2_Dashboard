@@ -10,6 +10,7 @@ let averageConsumption = [];  // Para almacenar los datos globales de consumo me
 d3.csv("FuelConsumption.csv").then(data => {
     let consumptionByMake = d3.group(data, d => d.MAKE);
     
+    //Se convierte el map en array para que nos sea mas facil trabajar con los datos
     averageConsumption = Array.from(consumptionByMake, ([make, values]) => {
         let total = d3.sum(values, d => +d['FUEL CONSUMPTION']);
         let count = values.length;
@@ -31,9 +32,13 @@ function sortData(data) {
     }
 }
 
+// Dibuja el grafico de barras horizontales para visualizar el consumo promedio de combustible para cada marca
+// Parametro data: array de objetos con las marcas de vehiculos y sus consumos promedio
+// Parametro fullData: conjunto de datos sin procesar, directamente del csv
 function drawBarChart(data, fullData) {
-    d3.select("#left svg").remove();  // Limpiar gráfico anterior si existe
+    d3.select("#left svg").remove();  // Limpiar gráfico anterior si existe y asi no se superponen
 
+    // Definimos un espacio para el grafico, con margenes, ancho y alto
     const margin = { top: 20, right: 20, bottom: 10, left: 10 };
     const width = 800 - margin.left - margin.right;
     const height = 600 - margin.top - margin.bottom;
@@ -42,19 +47,21 @@ function drawBarChart(data, fullData) {
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-        .append("g")
+        .append("g") // Con este elemento hacemos que se ajuste a los margenes anteriores 
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
+    // Escala lineal para el eje x. Mapea el consumo promedio de combustible al ancho del grafico.
     const xScale = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.average)])
         .range([0, width]);
 
+    // Escala de bandas para el eje y. Asigna cada marca de vehiculo a una posicion vertical y un pequeño relleno entre barras
     const yScale = d3.scaleBand()
         .domain(data.map(d => d.make))
         .range([height, 0])
         .padding(0.1);
 
-    // Título del gráfico
+    // Título del gráfico, centrado arriba del area del grafico
     svg.append("text")
     .attr("x", (width / 2))             
     .attr("y", 1 - (margin.top / 20))
@@ -63,7 +70,8 @@ function drawBarChart(data, fullData) {
     .style("text-decoration", "underline")  
     .text("Consumo promedio (L/100km) de combustible por marca");
 
-    // Barras
+    // Creacion de barras representando marcas de vehiculo.
+    // Ponemos un color a la marca que seleccione el usuario
     svg.selectAll("rect")
         .data(data)
         .enter()
@@ -77,7 +85,7 @@ function drawBarChart(data, fullData) {
         .duration(1000)
         .attr("width", d => xScale(d.average));
 
-    // Etiquetas de marca
+    // Etiquetas de marca para cada barra
     svg.selectAll(".bar-label")
         .data(data)
         .enter()
@@ -88,7 +96,7 @@ function drawBarChart(data, fullData) {
         .attr("dy", ".35em")
         .text(d => d.make);
 
-    // Etiquetas de valor
+    // Etiquetas de valor de consumo promedio para cada barra
     svg.selectAll(".value-label")
         .data(data)
         .enter()
@@ -99,7 +107,8 @@ function drawBarChart(data, fullData) {
         .attr("dy", ".35em")
         .text(d => `${d3.format(".2f")(d.average)}`);
 
-    // Evento click en las barras
+    // Evento click en las barras para permitir interaccion
+    // Cuando se hace click, se muestra el otro grafico con detalle sobre el tipo de combustible para la marca seleccionada
     svg.selectAll("rect")
         .on("click", function(event, d) {
             // Quitar borde de todas las barras
@@ -117,17 +126,20 @@ function drawBarChart(data, fullData) {
         });
 }
 
+// Muestra los tipos de combustible usados por los modelos de la marca seleccionada
 function drawFuelChart(make, fullData) {
-    // Limpiar elementos antiguos
+    
+    // Se limpian elementos antiguos para que no se superpongan 
     d3.select("#right svg").remove();
     d3.select("#selectedMake").remove();
     d3.select("#carList").remove();
     d3.select("#sortButton").remove();
     d3.select("#right h4").remove();
 
+    // Filtramos por la marca seleccionada
     let selectedData = fullData.filter(item => item.MAKE === make);
 
-    // Nombre de la marca seleccionada
+    // Mostramos el nombre de la marca seleccionada
     d3.select("#right")
         .append("h3")
         .attr("id", "selectedMake")
@@ -139,7 +151,7 @@ function drawFuelChart(make, fullData) {
         .append("h4")
         .text("Distribución de tipos de combustible");
 
-    // Botón de ordenamiento
+    // Botón de ordenamiento para cambiar el orden de visualizacion (ascendente o descendente)
     const sortButton = d3.select("#right")
         .append("button")
         .attr("id", "sortButton")
@@ -155,6 +167,7 @@ function drawFuelChart(make, fullData) {
         'O': 0
     };
 
+    // Contamos cuantos modelos usan cada tipo de combustible
     selectedData.forEach(item => {
         if (item.FUEL === 'X') fuelCount['X']++;
         else if (item.FUEL === 'Z') fuelCount['Z']++;
@@ -179,6 +192,7 @@ function drawFuelChart(make, fullData) {
     const widthFuel = 400 - marginFuel.left - marginFuel.right;
     const heightFuel = 300 - marginFuel.top - marginFuel.bottom;
 
+    // Creamos un nuevo espacio para dibujar el grafico de tipos de combustible por marca
     const svgFuel = d3.select("#right")
         .append("svg")
         .attr("width", widthFuel + marginFuel.left + marginFuel.right)
@@ -186,6 +200,7 @@ function drawFuelChart(make, fullData) {
         .append("g")
         .attr("transform", `translate(${marginFuel.left},${marginFuel.top})`);
 
+    // Escalas para los ejes de combustibles
     const xScaleFuel = d3.scaleBand()
         .domain(fuelData.map(d => d.type))
         .range([0, widthFuel])
@@ -209,7 +224,7 @@ function drawFuelChart(make, fullData) {
         .duration(1000)
         .attr("height", d => heightFuel - yScaleFuel(d.count));
 
-    // Etiquetas de porcentaje
+    // Etiquetas de porcentaje para los combustibles
     svgFuel.selectAll("text.percentage")
         .data(fuelData)
         .enter()
@@ -221,7 +236,7 @@ function drawFuelChart(make, fullData) {
         .text(d => `${d3.format(".2f")(d.percentage)}%`)
         .attr("text-anchor", "middle");
 
-    // Leyenda dentro del gráfico
+    // Leyenda dentro del gráfico para distinguir cada tipo de combustible
     svgFuel.selectAll("text.legend")
         .data(fuelData)
         .enter()
@@ -249,6 +264,7 @@ function drawFuelChart(make, fullData) {
         }
     }).slice(0, 5); // Tomar los 5 coches de mayor consumo
 
+    // Mostramos el consumo ordenado de los coches para la marca seleccionada
     d3.select("#right")
         .append("div")
         .attr("id", "carList")
