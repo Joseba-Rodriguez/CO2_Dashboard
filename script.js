@@ -43,6 +43,11 @@ function drawBarChart(data, fullData) {
     const width = 800 - margin.left - margin.right;
     const height = 600 - margin.top - margin.bottom;
 
+    const title = d3.select("#left")
+                    .append("h2")
+                    .style("text-align", "center")
+                    .text("Consumo promedio (L/100km) de combustible por marca")
+
     const svg = d3.select("#left")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -62,13 +67,15 @@ function drawBarChart(data, fullData) {
         .padding(0.1);
 
     // Título del gráfico, centrado arriba del area del grafico
+    /*
     svg.append("text")
     .attr("x", (width / 2))             
     .attr("y", 1 - (margin.top / 20))
     .attr("text-anchor", "middle")  
     .style("font-size", "16px") 
-    .style("text-decoration", "underline")  
+    .style("text-decoration", "underline")
     .text("Consumo promedio (L/100km) de combustible por marca");
+    */
 
     // Creacion de barras representando marcas de vehiculo.
     // Ponemos un color a la marca que seleccione el usuario
@@ -80,7 +87,8 @@ function drawBarChart(data, fullData) {
         .attr("y", d => yScale(d.make))
         .attr("width", d => xScale(d.average))
         .attr("height", yScale.bandwidth())
-        .attr("fill", d => d.make === selectedMake ? "orange" : "steelblue")
+        .attr("margin", "5px")
+        .attr("fill", d => d.make === selectedMake ? "brown" : "steelblue")
     //    .transition()
     //    .duration(1000)
     //    .attr("width", d => xScale(d.average));
@@ -88,9 +96,9 @@ function drawBarChart(data, fullData) {
         .on("mouseover", function(event, d) {
             const tooltip = d3.select("#tooltip");
             tooltip.style("display", "block")
-                   .style("left", `${event.pageX + 10}px`)
-                   .style("top", `${event.pageY + 10}px`)
-                   .html(`<img src="${Listado_logos(d.make)}" alt="${d.make} logo" style="width:100px;">`);
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY + 10}px`)
+                    .html(`<img src="${Listado_logos(d.make)}" alt="${d.make} logo" style="width:100px;">`);
         })
         .on("mouseout", function() {
             d3.select("#tooltip").style("display", "none");
@@ -133,7 +141,7 @@ function drawBarChart(data, fullData) {
         .enter()
         .append("text")
         .attr("class", "value-label")
-        .attr("x", d => xScale(d.average) + -30)
+        .attr("x", d => xScale(d.average) + -40)
         .attr("y", d => yScale(d.make) + yScale.bandwidth() / 2)
         .attr("dy", ".35em")
         .text(d => `${d3.format(".2f")(d.average)}`);
@@ -149,7 +157,7 @@ function drawBarChart(data, fullData) {
 
             // Resaltar la barra seleccionada
             d3.select(this)
-                .attr("stroke", "orange")
+                .attr("stroke", "brown")
                 .attr("stroke-width", 4);
 
             selectedMake = d.make;
@@ -163,8 +171,10 @@ function drawFuelChart(make, fullData) {
     // Se limpian elementos antiguos para que no se superpongan 
     d3.select("#right svg").remove();
     d3.select("#selectedMake").remove();
+    d3.select("h2").remove();
     d3.select("#carList").remove();
     d3.select("#sortButton").remove();
+    d3.select("#btn").remove();
     d3.select("#right h4").remove();
 
     // Filtramos por la marca seleccionada
@@ -172,20 +182,23 @@ function drawFuelChart(make, fullData) {
 
     // Mostramos el nombre de la marca seleccionada
     d3.select("#right")
-        .append("h3")
+        .append("h1")
         .attr("id", "selectedMake")
         .text(make)
-        .style("text-align", "center");
+        .style("text-align", "center")
+        .style("color", "brown");
 
     // Título del gráfico de combustibles
     d3.select("#right")
-        .append("h4")
+        .append("h2")
+        .style("text-align", "center")
         .text("Distribución de tipos de combustible");
 
     // Botón de ordenamiento para cambiar el orden de visualizacion (ascendente o descendente)
     const sortButton = d3.select("#right")
         .append("button")
         .attr("id", "sortButton")
+        .attr("id", "btn")
         .text("Ordenar por consumo")
         .on("click", function() {
             isAscending = !isAscending; // Cambiar el estado del ordenamiento
@@ -265,9 +278,10 @@ function drawFuelChart(make, fullData) {
         .append("text")
         .attr("class", "percentage")
         .attr("x", d => xScaleFuel(d.type) + xScaleFuel.bandwidth() / 2)
-        .attr("y", d => yScaleFuel(d.count) - 5)
+        .attr("y", d => yScaleFuel(d.count) - 15)
         .attr("dy", ".35em")
         .text(d => `${d3.format(".2f")(d.percentage)}%`)
+        .attr("class", "fuel-type-text")
         .attr("text-anchor", "middle");
 
     // Leyenda dentro del gráfico para distinguir cada tipo de combustible
@@ -287,6 +301,7 @@ function drawFuelChart(make, fullData) {
             }
         })
         .attr("text-anchor", "middle")
+        .attr("class", "fuel-type-text")
         .attr("fill", "black");
 
     // Lista de coches de mayor a menor consumo
@@ -306,6 +321,7 @@ function drawFuelChart(make, fullData) {
         .data(sortedCars)
         .enter()
         .append("p")
-        .text(d => `${d.MODEL} - ${d3.format(".2f")(d['FUEL CONSUMPTION'])} L/100km`);
+        .style("padding-left", "15px")
+        .text(d => `${d.MODEL} - consumo de  ${d3.format(".2f")(d['FUEL CONSUMPTION'])} L/100km`);
 }
 

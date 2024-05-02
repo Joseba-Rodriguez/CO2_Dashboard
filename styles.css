@@ -40,8 +40,10 @@ h1#mainTitle, p#order, #selectedMake {
 }
 
 .bar-label, .value-label {
-    font-size: 12px;
+    font-size: 16px;
     fill: white;
+    font-weight: lighter;
+    
 }
 
 .percentage {
@@ -63,6 +65,19 @@ h1#mainTitle, p#order, #selectedMake {
     border-radius: 10px;
     padding: 5px;
 }
+
+.fuel-type-text {
+    font-weight: bold;
+    font-size: larger;
+}
+
+#btn {
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: large;
+    color: brown;
+}
+
 .tooltip {
     position: absolute;
     padding: 5px;
