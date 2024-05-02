@@ -81,9 +81,40 @@ function drawBarChart(data, fullData) {
         .attr("width", d => xScale(d.average))
         .attr("height", yScale.bandwidth())
         .attr("fill", d => d.make === selectedMake ? "orange" : "steelblue")
-        .transition()
-        .duration(1000)
-        .attr("width", d => xScale(d.average));
+    //    .transition()
+    //    .duration(1000)
+    //    .attr("width", d => xScale(d.average));
+
+        .on("mouseover", function(event, d) {
+            const tooltip = d3.select("#tooltip");
+            tooltip.style("display", "block")
+                   .style("left", `${event.pageX + 10}px`)
+                   .style("top", `${event.pageY + 10}px`)
+                   .html(`<img src="${Listado_logos(d.make)}" alt="${d.make} logo" style="width:100px;">`);
+        })
+        .on("mouseout", function() {
+            d3.select("#tooltip").style("display", "none");
+        });
+
+        function Listado_logos(make) {
+            // Listado de logos dependiendo de la marca
+            const logos = {
+                "FERRARI": "/logos/Ferrari.jpeg", "LAND ROVER": "/logos/Land_rover.png", "DODGE": "/logos/Dodge.jpeg",
+                "GMC": "/logos/GMC.png", "CADILLAC": "/logos/Cadillac.webp", "JEEP": "/logos/Jeep.png",
+                "LINCOLN": "/logos/Lincoln.webp", "FORD": "/logos/Ford.png", "ISUZU": "/logos/Isuzu.webp",
+                "JAGUAR": "/logos/Jaguar.png", "CHEVROLET": "/logos/Chevrolet.png", "PORSCHE": "/logos/Porsche.png",
+                "PLYMOUTH": "/logos/Plymouth.png", "NISSAN": "/logos/Nissan.png", "LEXUS": "/logos/Lexus.png",
+                "BMW": "/logos/Bmw.png", "MERCEDES-BENZ": "/logos/Mercedes.png", "BUICK": "/logos/Buick.png",
+                "AUDI": "/logos/Audi.png", "VOLVO": "/logos/Volvo.png", "CHRYSLER": "/logos/Chrysler.png",
+                "SAAB": "/logos/Saab.png", "INFINITI": "/logos/Infiniti.png", "OLDSMOBILE": "/logos/Oldsmobile.png",
+                "MAZDA": "/logos/Mazda.png", "TOYOTA": "/logos/Toyota.png", "PONTIAC": "/logos/Pontiac.png",
+                "ACURA": "/logos/Acura.png", "KIA": "/logos/Kia.png", "SUBARU": "/logos/Subaru.png",
+                "DAEWOO": "/logos/Daewoo.png", "VOLKSWAGEN": "/logos/Volkswagen.png", "HYUNDAI": "/logos/Hyunday.png",
+                "HONDA": "/logos/Honda.png", "SATURN": "/logos/Saturn.png", "SUZUKI": "/logos/Suzuki.png"     };
+            return logos[make] || ''; // Devuelve el logo o cadena vacía si no se encuentra
+        }
+
+
 
     // Etiquetas de marca para cada barra
     svg.selectAll(".bar-label")
@@ -187,6 +218,7 @@ function drawFuelChart(make, fullData) {
         percentage: ((fuelCount[type] || 0) / total) * 100
     })).sort((a, b) => b.count - a.count); // Ordenar por cantidad de combustible
 
+
     // Crear gráfico de combustibles
     const marginFuel = { top: 30, right: 20, bottom: 50, left: 60 };
     const widthFuel = 400 - marginFuel.left - marginFuel.right;
@@ -210,7 +242,8 @@ function drawFuelChart(make, fullData) {
         .domain([0, d3.max(fuelData, d => d.count)])
         .range([heightFuel, 0]);
 
-    // Barras de combustible
+    // Barras de combustible  // TOOLTIP
+  
     const bars = svgFuel.selectAll("rect")
         .data(fuelData)
         .enter()
@@ -222,8 +255,9 @@ function drawFuelChart(make, fullData) {
         .attr("fill", (d, i) => ['blue', 'green', 'orange'][i])
         .transition()
         .duration(1000)
-        .attr("height", d => heightFuel - yScaleFuel(d.count));
-
+        .attr("height", d => heightFuel - yScaleFuel(d.count))
+    
+        
     // Etiquetas de porcentaje para los combustibles
     svgFuel.selectAll("text.percentage")
         .data(fuelData)
@@ -274,3 +308,4 @@ function drawFuelChart(make, fullData) {
         .append("p")
         .text(d => `${d.MODEL} - ${d3.format(".2f")(d['FUEL CONSUMPTION'])} L/100km`);
 }
+
