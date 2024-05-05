@@ -48,7 +48,7 @@ function drawBarChart(data, fullData) {
                     .style("text-align", "center")
                     .text("Consumo promedio (L/100km) de combustible por marca")
 
-    const svg = d3.select("#left")
+    var svg = d3.select("#left")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -81,18 +81,13 @@ function drawBarChart(data, fullData) {
     // Ponemos un color a la marca que seleccione el usuario
     svg.selectAll("rect")
         .data(data)
-        .enter()
-        .append("rect")
+        .join("rect")
         .attr("x", 0)
         .attr("y", d => yScale(d.make))
         .attr("width", d => xScale(d.average))
         .attr("height", yScale.bandwidth())
         .attr("margin", "5px")
         .attr("fill", d => d.make === selectedMake ? "brown" : "steelblue")
-    //    .transition()
-    //    .duration(1000)
-    //    .attr("width", d => xScale(d.average));
-
         .on("mouseover", function(event, d) {
             const tooltip = d3.select("#tooltip");
             tooltip.style("display", "block")
@@ -103,26 +98,6 @@ function drawBarChart(data, fullData) {
         .on("mouseout", function() {
             d3.select("#tooltip").style("display", "none");
         });
-
-        function Listado_logos(make) {
-            // Listado de logos dependiendo de la marca
-            const logos = {
-                "FERRARI": "/logos/Ferrari.jpeg", "LAND ROVER": "/logos/Land_rover.png", "DODGE": "/logos/Dodge.jpeg",
-                "GMC": "/logos/GMC.png", "CADILLAC": "/logos/Cadillac.webp", "JEEP": "/logos/Jeep.png",
-                "LINCOLN": "/logos/Lincoln.webp", "FORD": "/logos/Ford.png", "ISUZU": "/logos/Isuzu.webp",
-                "JAGUAR": "/logos/Jaguar.png", "CHEVROLET": "/logos/Chevrolet.png", "PORSCHE": "/logos/Porsche.png",
-                "PLYMOUTH": "/logos/Plymouth.png", "NISSAN": "/logos/Nissan.png", "LEXUS": "/logos/Lexus.png",
-                "BMW": "/logos/Bmw.png", "MERCEDES-BENZ": "/logos/Mercedes.png", "BUICK": "/logos/Buick.png",
-                "AUDI": "/logos/Audi.png", "VOLVO": "/logos/Volvo.png", "CHRYSLER": "/logos/Chrysler.png",
-                "SAAB": "/logos/Saab.png", "INFINITI": "/logos/Infiniti.png", "OLDSMOBILE": "/logos/Oldsmobile.png",
-                "MAZDA": "/logos/Mazda.png", "TOYOTA": "/logos/Toyota.png", "PONTIAC": "/logos/Pontiac.png",
-                "ACURA": "/logos/Acura.png", "KIA": "/logos/Kia.png", "SUBARU": "/logos/Subaru.png",
-                "DAEWOO": "/logos/Daewoo.png", "VOLKSWAGEN": "/logos/Volkswagen.png", "HYUNDAI": "/logos/Hyunday.png",
-                "HONDA": "/logos/Honda.png", "SATURN": "/logos/Saturn.png", "SUZUKI": "/logos/Suzuki.png"     };
-            return logos[make] || ''; // Devuelve el logo o cadena vacía si no se encuentra
-        }
-
-
 
     // Etiquetas de marca para cada barra
     svg.selectAll(".bar-label")
@@ -165,6 +140,24 @@ function drawBarChart(data, fullData) {
         });
 }
 
+function Listado_logos(make) {
+    // Listado de logos dependiendo de la marca
+    const logos = {
+        "FERRARI": "/logos/Ferrari.jpeg", "LAND ROVER": "/logos/Land_rover.png", "DODGE": "/logos/Dodge.jpeg",
+        "GMC": "/logos/GMC.png", "CADILLAC": "/logos/Cadillac.webp", "JEEP": "/logos/Jeep.png",
+        "LINCOLN": "/logos/Lincoln.webp", "FORD": "/logos/Ford.png", "ISUZU": "/logos/Isuzu.webp",
+        "JAGUAR": "/logos/Jaguar.png", "CHEVROLET": "/logos/Chevrolet.png", "PORSCHE": "/logos/Porsche.png",
+        "PLYMOUTH": "/logos/Plymouth.png", "NISSAN": "/logos/Nissan.png", "LEXUS": "/logos/Lexus.png",
+        "BMW": "/logos/Bmw.png", "MERCEDES-BENZ": "/logos/Mercedes.png", "BUICK": "/logos/Buick.png",
+        "AUDI": "/logos/Audi.png", "VOLVO": "/logos/Volvo.png", "CHRYSLER": "/logos/Chrysler.png",
+        "SAAB": "/logos/Saab.png", "INFINITI": "/logos/Infiniti.png", "OLDSMOBILE": "/logos/Oldsmobile.png",
+        "MAZDA": "/logos/Mazda.png", "TOYOTA": "/logos/Toyota.png", "PONTIAC": "/logos/Pontiac.png",
+        "ACURA": "/logos/Acura.png", "KIA": "/logos/Kia.png", "SUBARU": "/logos/Subaru.png",
+        "DAEWOO": "/logos/Daewoo.png", "VOLKSWAGEN": "/logos/Volkswagen.png", "HYUNDAI": "/logos/Hyunday.png",
+        "HONDA": "/logos/Honda.png", "SATURN": "/logos/Saturn.png", "SUZUKI": "/logos/Suzuki.png"     };
+    return logos[make] || ''; // Devuelve el logo o cadena vacía si no se encuentra
+}
+
 // Muestra los tipos de combustible usados por los modelos de la marca seleccionada
 function drawFuelChart(make, fullData) {
     
@@ -186,12 +179,14 @@ function drawFuelChart(make, fullData) {
         .attr("id", "selectedMake")
         .text(make)
         .style("text-align", "center")
-        .style("color", "brown");
+        .style("color", "brown")
+        .style("font-weight", "bolder");
 
     // Título del gráfico de combustibles
     d3.select("#right")
         .append("h2")
-        .style("text-align", "center")
+        .style("text-align", "right")
+        .style("padding-right", "30px")
         .text("Distribución de tipos de combustible");
 
     // Botón de ordenamiento para cambiar el orden de visualizacion (ascendente o descendente)
@@ -202,7 +197,7 @@ function drawFuelChart(make, fullData) {
         .text("Ordenar por consumo")
         .on("click", function() {
             isAscending = !isAscending; // Cambiar el estado del ordenamiento
-            drawFuelChart(make, fullData); // Redibujar el gráfico con el nuevo orden
+            drawSortedCars(make, fullData); // Mostrar los vehiculos con el nuevo orden
         });
 
     let fuelCount = {
@@ -256,16 +251,25 @@ function drawFuelChart(make, fullData) {
         .range([heightFuel, 0]);
 
     // Barras de combustible  // TOOLTIP
-  
+
     const bars = svgFuel.selectAll("rect")
         .data(fuelData)
-        .enter()
-        .append("rect")
+        .join("rect")
+        .transition()
+        .duration(800)
+        //.ease(d3.easeLinear)
+        //.ease(d3.easeElastic.amplitude(2).period(0.6))
+        //.ease(d3.easeBounceOut)
+        //.ease(d3.easeExpOut)
+        .ease(d3.easeBackOut.overshoot(1.4))
+        .delay(175)
         .attr("x", d => xScaleFuel(d.type))
         .attr("y", d => yScaleFuel(d.count))
         .attr("width", xScaleFuel.bandwidth())
         .attr("height", d => heightFuel - yScaleFuel(d.count))
         .attr("fill", (d, i) => ['blue', 'green', 'orange'][i])
+        .attr("stroke", "black")
+        .attr("stroke-width", 4)
         .transition()
         .duration(1000)
         .attr("height", d => heightFuel - yScaleFuel(d.count))
@@ -312,6 +316,59 @@ function drawFuelChart(make, fullData) {
             return b['FUEL CONSUMPTION'] - a['FUEL CONSUMPTION'];
         }
     }).slice(0, 5); // Tomar los 5 coches de mayor consumo
+
+    // Mostramos el consumo ordenado de los coches para la marca seleccionada
+    d3.select("#right")
+        .append("div")
+        .attr("id", "carList")
+        .selectAll("p")
+        .data(sortedCars)
+        .enter()
+        .append("p")
+        .style("padding-left", "15px")
+        .text(d => `${d.MODEL} - consumo de  ${d3.format(".2f")(d['FUEL CONSUMPTION'])} L/100km`);
+}
+
+function drawSortedCars(make, fullData){
+    
+    let selectedData = fullData.filter(item => item.MAKE === make);
+
+    let fuelCount = {
+        'X': 0,
+        'Z': 0,
+        'O': 0
+    };
+
+    // Contamos cuantos modelos usan cada tipo de combustible
+    selectedData.forEach(item => {
+        if (item.FUEL === 'X') fuelCount['X']++;
+        else if (item.FUEL === 'Z') fuelCount['Z']++;
+        else fuelCount['O']++;
+    });
+
+    let total = Object.values(fuelCount).reduce((acc, val) => acc + val, 0);
+
+    if (total === 0) {
+        console.error("No hay datos disponibles para la marca seleccionada.");
+        return;
+    }
+
+    let fuelData = Object.keys(fuelCount).map(type => ({
+        type,
+        count: fuelCount[type],
+        percentage: ((fuelCount[type] || 0) / total) * 100
+    })).sort((a, b) => b.count - a.count); // Ordenar por cantidad de combustible
+
+    // Lista de coches de mayor a menor consumo
+    const sortedCars = selectedData.sort((a, b) => {
+        if (isAscending) {
+            return a['FUEL CONSUMPTION'] - b['FUEL CONSUMPTION'];
+        } else {
+            return b['FUEL CONSUMPTION'] - a['FUEL CONSUMPTION'];
+        }
+    }).slice(0, 5); // Tomar los 5 coches de mayor consumo
+
+    d3.select("#carList").remove(); // Limpiar la lista de coches
 
     // Mostramos el consumo ordenado de los coches para la marca seleccionada
     d3.select("#right")
