@@ -1,89 +1,100 @@
+/* Estilos para el cuerpo del documento */
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0; /* Elimina el margen predeterminado del cuerpo */
+    padding: 0; /* Elimina el relleno predeterminado del cuerpo */
+    box-sizing: border-box; /* Incluye el borde en el ancho y alto total del elemento */
+    width: 90%; /* Establece el ancho del cuerpo al 90% del ancho del contenedor padre para mejor legibilidad*/
+    margin-left: auto; /* Centra el cuerpo horizontalmente */
+    margin-right: auto; /* Centra el cuerpo horizontalmente */
 }
 
+/* Estilos para el contenedor de graficas */
 .graph-container {
-    display: flex;
-    flex-direction: row;
-    margin-top: 20px;
-    border: 1px solid black;
+    display: flex; /* Utiliza el modelo de caja flexible */
+    flex-direction: row; /* Organiza los elementos en una fila */
+    margin-top: 20px; /* Margen superior de 20 pixeles */
+    border: 1px solid black; /* Borde de 1 pixel negro solido */
 }
 
+/* Estilos para el contenedor de la primera grafica */
 #graph1 {
-    display: flex;
+    display: flex; /* Utiliza el modelo de caja flexible */
 }
 
+/* Estilos para el lado izquierdo del contenedor de la primera grafica */
 #left {
-    flex: 1;
-    background-color: #dfdfdf;
-    padding: 20px;
+    flex: 1; /* Ocupa el espacio disponible en la fila */
+    background-color: #dfdfdf; /* Color de fondo gris claro */
+    padding: 20px; /* Relleno interior de 20 pixeles */
 }
 
+/* Estilos para el lado derecho del contenedor de la primera grafica */
 #right {
-    flex: 1;
-    background-color: #cdcecf;
-    border-left: 1px dotted black;
-    padding: 20px;
+    flex: 1; /* Ocupa el espacio disponible en la fila */
+    background-color: #cdcecf; /* Color de fondo gris claro */
+    border-left: 1px dotted black; /* Borde izquierdo de puntos negros */
+    padding: 20px; /* Relleno interior de 20 píxeles */
 }
 
+/* Estilos para los elementos con identificador 'mainTitle', 'order' y 'selectedMake' */
 h1#mainTitle, p#order, #selectedMake {
-    text-align: center;
+    text-align: center; /* Alinea el texto al centro */
 }
 
+/* Estilos para los elementos con clase 'member' */
 .member {
-    list-style-type: none;
+    list-style-type: none; /* Quita los marcadores de la lista */
 }
 
+/* Estilos para los elementos con clase 'bar-label' y 'value-label' */
 .bar-label, .value-label {
-    font-size: 16px;
-    fill: white;
-    font-weight: lighter;
-    
+    font-size: 16px; /* Tamaño de fuente de 16 pixeles */
+    fill: white; /* Color de relleno blanco (para gráficos SVG) */
+    font-weight: lighter; /* Fuente mas ligera */
 }
 
+/* Estilos para los elementos con clase 'percentage' */
 .percentage {
-    font-size: 12px;
-    fill: black;
+    font-size: 12px; /* Tamaño de fuente de 12 pixeles */
+    fill: black; /* Color de relleno negro (para graficos SVG) */
 }
 
-
+/* Estilos adicionales para el lado derecho del contenedor de la primera grafica */
 #right {
-    flex: 3;
-    background-color: #cdcecf;
-    border-left: 1px dotted black;
-    padding: 5px;
+    flex: 3; /* Ocupa el espacio disponible en la fila (mas grande) */
+    background-color: #cdcecf; /* Color de fondo gris claro */
+    border-left: 1px dotted black; /* Borde izquierdo de puntos negros */
+    padding: 5px; /* Relleno interior de 5 pixeles */
 }
 
+/* Estilos para el contenedor de la segunda grafica */
 #graph2 {
-    /*height: 300px;*/
-    background-color: #dee2e6;
-    border-radius: 10px;
-    padding: 5px;
+    background-color: #dee2e6; /* Color de fondo gris claro */
+    border-radius: 10px; /* Bordes redondeados de 10 pixeles */
+    padding: 5px; /* Relleno interior de 5 pixeles */
 }
 
+/* Estilos para el texto de tipo de combustible */
 .fuel-type-text {
-    font-weight: bold;
-    font-size: larger;
+    font-weight: bold; /* Fuente en negrita */
+    font-size: larger; /* Tamaño de fuente mas grande */
 }
 
+/* Estilos para el boton */
 #btn {
-    border-radius: 15px;
-    font-weight: bold;
-    font-size: large;
-    color: brown;
+    border-radius: 15px; /* Bordes redondeados de 15 pixeles */
+    font-weight: bold; /* Fuente en negrita */
+    font-size: large; /* Tamaño de fuente grande */
+    color: brown; /* Color del texto marron */
 }
 
+/* Estilos para el tooltip */
 .tooltip {
-    position: absolute;
-    padding: 5px;
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid #ccc;
-    pointer-events: none;
-    display: none;
-    z-index: 10;
+    position: absolute; /* Posicionamiento absoluto */
+    padding: 5px; /* Relleno interior de 5 pixeles */
+    background: rgba(255, 255, 255, 0.8); /* Fondo blanco transparente */
+    border: 1px solid #ccc; /* Borde solido gris claro */
+    pointer-events: none; /* No permite eventos de puntero */
+    display: none; /* Oculta el tooltip por defecto */
+    z-index: 10; /* Indice de apilamiento */
 }

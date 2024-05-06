@@ -1,42 +1,49 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Actividad 1</title>
+<html lang="es"> <!-- Nuestra pagina sera en español -->
 
-    <link rel="stylesheet" href="styles.css">
-    <!-- Carga de la libreria de D3.js -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+<head>
+    
+    <meta charset="UTF-8"> <!-- Para evitar problemas de caracteres usamos UTF-8 -->
+
+    <title>Actividad 1</title> 
+
+    <link rel="stylesheet" href="styles.css"> <!-- Enlace a nuestra hoja de estilos -->
+    
+    <script src="https://d3js.org/d3.v7.min.js"></script> <!-- Carga de la libreria de D3.js -->
+
     <script src="script.js" defer></script> <!-- Añadimos el script.js -->
-</head>
+</head> 
 
 <!-- El cuerpo contiene titulo de la actividad, integrantes y los espacios para las visualizaciones -->
 <body>
     
     <h1 id="mainTitle">Actividad Grupal - Herramientas de visualización</h1>
     
-    <!-- Tenemos un contenedor con dos graficas: la grande a la izquierda y la pequeña a la derecha-->
-    <div id="graph1" class="graph-container">
-        <div id="left">
-            <!-- Aqui se dibujará la grafica de barras -->
-        </div>
-        <div id="right">
-            <!-- Aqui se dibujará la grafica de combustibles -->
-        </div>
-    </div>
+    <!-- Tenemos un contenedor con dos graficas: la principal a la izquierda y la derivada a la derecha -->
+    <div id="graph1" class="graph-container"> <!-- Crea un contenedor con un identificador graph1 y una clase graph-container -->
+        
+        <div id="left"> <!-- Dentro del contenedor graph1, crea un div con un identificador left -->
+            <!-- Aqui se dibujará la grafica de barras de consumo promedio por marca -->
+        </div> 
+        <div id="right"> <!-- Dentro del contenedor graph1, crea un div con un identificador right -->
+            <!-- Aqui se dibujará la grafica de combustibles y modelos de la marca seleccionada -->
+        
+        </div> 
+    </div> 
 
     <!-- Esta es la segunda grafica con los tipos de combustibles segun la marca seleccionada -->
     
     <div id="tooltip" class="tooltip" style="display: none;"></div>
 
-    <h3><b>Integrantes del equipo:</b></h3>
+    <h3><b>Integrantes del equipo:</b></h3> 
     
     <ul> 
-        <li class="member">Cano García, Eduardo</li>
-        <li class="member">García Díaz, Pedro Ruymán</li>
-        <li class="member">Martín García, Víctor Manuel</li>
-        <li class="member">Rodríguez Vivanco, Joseba</li>
-    </ul>
+        <li class="member">Cano García, Eduardo</li> 
+        <li class="member">García Díaz, Pedro Ruymán</li> 
+        <li class="member">Martín García, Víctor Manuel</li> 
+        <li class="member">Rodríguez Vivanco, Joseba</li> 
+    </ul> 
 
-</body>
-</html>
+</body> 
+
+</html> 
